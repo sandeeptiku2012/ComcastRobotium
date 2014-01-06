@@ -1,0 +1,36 @@
+<!-- <project>
+   <target name="fetch-test-report">
+     <echo>Downloading XML test report...</echo>
+     <mkdir dir="${reports.dir}"/>
+     <exec executable="${adb}" failonerror="true">
+       <arg line="${adb.device.arg}"/>
+       <arg value="pull" />
+       <arg value="/mnt/sdcard/junit-report.xml" />
+       <arg value="${reports.dir}/junit-report.xml" />
+     </exec>
+   </target>
+</project>
+ -->
+ 
+ <project>
+     <!-- The following target shows how to fetch the default report using adb pull. -->
+     
+     <property name="reports.dir" value="bin/reports"/>
+
+
+    <target name="init-props">
+        <xpath input="AndroidManifest.xml"
+               expression="/manifest/@package" output="tested.project.app.package"/>
+    </target>
+     
+    <target name="fetch-test-report"  depends="init-props" >
+        <echo>Downloading XML test report...</echo>
+        <mkdir dir="${reports.dir}"/>
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}"/>
+            <arg value="pull"/>
+            <arg value="/data/data/com.xfinity.xidio/files/junit-report.xml"/>
+            <arg value="${reports.dir}/junit-report.xml" />
+        </exec>
+    </target>
+ </project>
